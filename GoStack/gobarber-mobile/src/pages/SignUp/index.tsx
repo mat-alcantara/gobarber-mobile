@@ -6,6 +6,7 @@ import {
   Platform,
   View,
   ScrollView,
+  TextInput,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/Feather';
@@ -21,6 +22,8 @@ import logoImg from '../../assets/logo.png';
 
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+  const emailRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
 
   const navigation = useNavigation();
 
@@ -47,9 +50,45 @@ const SignIn: React.FC = () => {
                 console.log('ok');
               }}
             >
-              <Input name="name" icon="user" placeholder="Nome" />
-              <Input name="email" icon="mail" placeholder="Email" />
-              <Input name="password" icon="lock" placeholder="Senha" />
+              <Input
+                autoCorrect={false}
+                autoCapitalize="words"
+                name="name"
+                icon="user"
+                placeholder="Nome"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  emailRef.current?.focus();
+                }}
+              />
+
+              <Input
+                keyboardType="email-address"
+                autoCorrect={false}
+                autoCapitalize="none"
+                name="email"
+                icon="mail"
+                placeholder="Email"
+                returnKeyType="next"
+                ref={emailRef}
+                onSubmitEditing={() => {
+                  passwordRef.current?.focus();
+                }}
+              />
+
+              <Input
+                secureTextEntry
+                name="password"
+                icon="lock"
+                placeholder="Senha"
+                textContentType="newPassword"
+                returnKeyType="send"
+                onSubmitEditing={() => {
+                  formRef.current?.submitForm();
+                }}
+                ref={passwordRef}
+              />
+
               <Button
                 onPress={() => {
                   formRef.current?.submitForm();
