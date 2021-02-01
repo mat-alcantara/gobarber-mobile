@@ -55,7 +55,11 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
+        console.log(data);
+
         await api.post('users', data);
+
+        console.log('ok');
 
         Alert.alert(
           'Cadastro realizado com sucesso!',
@@ -72,6 +76,7 @@ const SignIn: React.FC = () => {
           return;
         }
 
+        console.log(err);
         Alert.alert(
           'Erro no cadastro',
           'Ocorreu um erro ao fazer cadastro, tente novamente',
